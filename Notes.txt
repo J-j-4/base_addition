@@ -1,0 +1,8 @@
+base_addition.py
+2014-10-19 ejb
+
+Works.
+Cannot handle negative numbers.
+
+Now I should make it a proper module, that can be imported in my base_multiplication script.
+
