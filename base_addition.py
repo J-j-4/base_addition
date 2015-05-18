@@ -39,7 +39,7 @@ def log_error(error_str):
     sys.stderr.write("ERROR: {}.\n".format(error_str))
 
 def run_tests():
-    assert(base_addition(debug=False, base=2,  addends=[11, 1]) == '100')
+    assert(base_addition(debug=False, base=2, addends=[11, 1]) == '100')
     assert(base_addition(debug=False, base=5, addends=[0, 0, 4, 1, 0, 0]) == '10')
     assert(base_addition(debug=False, base=8, addends=[4, 4, 4, 4]) == '20')
     # assert(base_addition(debug=False, base=, addends=[, ]) == '')
@@ -61,14 +61,26 @@ def base_addition(debug, base, addends):
     digits = DIGITS[0:base]
     accumulator = 0  # Additive identity
 
+    # Validate that input digits are valid in given base
+    valid = True
+    for addend in addends:
+        for digit in str(addend).upper():
+            if not str(digit).upper() in digits:
+                valid = False
+                log_error('Invalid number {} for base {}'.format(addend, base))
+                break
+    if not valid:
+        sys.exit(-1)
+
+
     if len(addends) == 0:
         return str(addends[0])
     else:
         accumulator = str(addends.pop())
 
     while len(addends) > 0:
-        x = str(accumulator)
-        y = str(addends.pop())
+        x = str(accumulator).upper()
+        y = str(addends.pop()).upper()
 
         log_debug('x input: {}: '.format(x))
         log_debug('y input: {}: '.format(y))
