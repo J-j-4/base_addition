@@ -15,13 +15,13 @@ Revision history
 
 
 
-DIGITS = '0123456789ABCDEF'
+DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 debug = False
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Add two numbers in a given base (default 10).")
-    parser.add_argument("-b", "--base", type=int, dest="base", choices=xrange(2, 17), default=10, help="base (2-16); default = %(default)s")
+    parser.add_argument("-b", "--base", type=int, dest="base", choices=xrange(2, 36 + 1), default=10, help="base (2-36); default = %(default)s")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--addends", type=str, metavar="NUM", nargs='+', help="addends")
     group.add_argument("--test", action="store_true", help="run test suite")
@@ -39,22 +39,19 @@ def log_error(error_str):
     sys.stderr.write("ERROR: {}.\n".format(error_str))
 
 def run_tests():
-    assert(base_addition(debug=False, base=2, addends=[11, 1]) == '100')
-    assert(base_addition(debug=False, base=5, addends=[0, 0, 4, 1, 0, 0]) == '10')
-    assert(base_addition(debug=False, base=8, addends=[4, 4, 4, 4]) == '20')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
-    # assert(base_addition(debug=False, base=, addends=[, ]) == '')
+    assert(base_addition(debug=False, base=2,  addends=[11, 1]) == '100')
+    assert(base_addition(debug=False, base=3,  addends=[100020, 122]) == '100212')
+    assert(base_addition(debug=False, base=3,  addends=[12, 21]) == '110')
+    assert(base_addition(debug=False, base=3,  addends=[1101, 21]) == '1122')
+    assert(base_addition(debug=False, base=5,  addends=[0, 0, 4, 1, 0, 0]) == '10')
+    assert(base_addition(debug=False, base=5,  addends=[143, 43]) == '241')
+    assert(base_addition(debug=False, base=5,  addends=[1324, 33, 2313]) == '4230')
+    assert(base_addition(debug=False, base=6,  addends=[32001, 5414, 221]) == '42040')
+    assert(base_addition(debug=False, base=8,  addends=[4, 4, 4, 4]) == '20')
+    assert(base_addition(debug=False, base=12, addends=['3B7', '25B9', '210A', 'B', '82']) == '4B93')
+    assert(base_addition(debug=False, base=17, addends=['4FEDCBA', '3146B5A']) == '8023703')
+    assert(base_addition(debug=False, base=20, addends=['177', '4B9', '33', '14G', '2']) == '76H')
+    assert(base_addition(debug=False, base=22, addends=['ED', 'GAIL']) == 'GBBC')
     print ('All tests passed.')
 
 def base_addition(debug, base, addends):
